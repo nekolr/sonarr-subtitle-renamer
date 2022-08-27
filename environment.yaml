@@ -1,0 +1,11 @@
+name: sonarr-subtitle-renamer
+channels:
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - requests
+  - pip:
+      - thefuzz
+      - PySide6
+      - levenshtein
