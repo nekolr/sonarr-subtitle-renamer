@@ -47,7 +47,7 @@ def is_tc(filename):
     """
     是繁体字幕
     """
-    pattern = re.compile(r".tcjp.|.tc.|-tc.", re.IGNORECASE)
+    pattern = re.compile(r".tcjp.|.tc.|-tc.|_tc.", re.IGNORECASE)
     match = pattern.search(filename)
     return match is not None
 
