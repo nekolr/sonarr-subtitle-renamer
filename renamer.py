@@ -25,7 +25,8 @@ def find_series(name):
     """
     peashooter_client = PeashooterClient()
     series_list = peashooter_client.refresh_series_list()
-    return list(filter(lambda series: fuzz.partial_ratio(series['name'], name) >= seriesMatchRatio, series_list))
+    return list(filter(lambda series: fuzz.partial_ratio(series['name'].lower(), name.lower()) >= seriesMatchRatio,
+                       series_list))
 
 
 def get_output_dir(episode_list):
