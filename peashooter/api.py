@@ -9,3 +9,6 @@ class PeashooterApi(object):
 
     def get_series_list(self):
         pass
+
+    def refresh_series_list(self):
+        pass
