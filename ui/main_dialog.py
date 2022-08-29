@@ -183,6 +183,7 @@ class MainDialogUi(object):
 
     def handle_search_series(self):
         series_list = renamer.find_series(self.searchSeriesInput.text())
+        self.selectSeriesList.clear()
         for series in series_list:
             self.selectSeriesList.addItem(" ".join([series['seriesId'], series['name']]))
 
