@@ -44,8 +44,9 @@ class MainDialogUi(object):
     def setup_ui(self, main_window):
         if main_window.objectName():
             main_window.setObjectName(u"main_window")
-        main_window.resize(640, 480)
-        main_window.setWindowIcon(QIcon(':/qt-project.org/logos/pysidelogo.png'))
+        # 禁止调整窗口大小
+        main_window.setFixedSize(640, 480)
+        main_window.setWindowIcon(QIcon('resource/tools.png'))
 
         self.setup_search_series_widget(main_window)
         self.setup_select_series_widget(main_window)
