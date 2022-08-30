@@ -131,7 +131,9 @@ def rename(series_id, season, zip_file_path, drive):
     # 解压缩
     with ZipFile(zip_file_path) as zip_file:
         item_file_name_list = zip_file.namelist()
-        item_file_name_list = list(filter(lambda item: not is_tc(item) and not is_child(item), item_file_name_list))
+        item_file_name_list = list(filter(lambda item: not is_child(item) and not is_tc(item), item_file_name_list))
+        if len(item_file_name_list) == 0:
+            item_file_name_list = list(filter(lambda item: not is_child(item), zip_file.namelist()))
         item_file_name_list.sort()
         filename_episode_num_map = get_filename_episode_num_map(item_file_name_list)
         episode_num_filename_map = get_episode_num_filename_map(episode_file_list)
