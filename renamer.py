@@ -77,6 +77,17 @@ def array_fill(two_dimension_list):
     return two_dimension_list
 
 
+def get_subtitle_file_type_list(file_name_list):
+    """
+    获取字幕文件的类型
+    """
+    result = []
+    for item in file_name_list:
+        _, extension = os.path.splitext(item)
+        result.append(extension)
+    return result
+
+
 def deduce_episode_num_solt(name_list):
     """
     推断 episode 的位置
@@ -106,7 +117,7 @@ def get_filename_episode_num_map(name_list):
     return result
 
 
-def get_episode_num_filename_map(episode_list):
+def get_episode_num_filename_map(episode_list, subtitle_file_type_list):
     """
     生成 "episode num -> 最终字幕文件名" 的映射
     """
@@ -114,7 +125,7 @@ def get_episode_num_filename_map(episode_list):
     result = dict()
     for i, episode in enumerate(episode_list):
         # 最终字幕文件名称
-        filename = re.sub("mkv|mp4", "zh.ass", episode['relativePath'].split("/")[1])
+        filename = re.sub("mkv|mp4", "zh" + subtitle_file_type_list[i], episode['relativePath'].split("/")[1])
         match = pattern.search(filename)
         # 获取 episode 编号
         episode_num = int(match.group(2))
@@ -135,8 +146,9 @@ def rename(series_id, season, zip_file_path, drive):
         if len(item_file_name_list) == 0:
             item_file_name_list = list(filter(lambda item: not is_child(item), zip_file.namelist()))
         item_file_name_list.sort()
+        subtitle_file_type_list = get_subtitle_file_type_list(item_file_name_list)
         filename_episode_num_map = get_filename_episode_num_map(item_file_name_list)
-        episode_num_filename_map = get_episode_num_filename_map(episode_file_list)
+        episode_num_filename_map = get_episode_num_filename_map(episode_file_list, subtitle_file_type_list)
 
         for item_file_name in item_file_name_list:
             with zip_file.open(item_file_name) as item_file:
