@@ -1,7 +1,7 @@
 import os.path
 import re
 import sys
-from zipfile import ZipFile
+from zipfile import ZipFile, Path
 
 import config
 from peashooter.client import PeashooterClient
@@ -53,15 +53,11 @@ def is_tc(filename):
     return match is not None
 
 
-def is_child(filename):
+def is_child(zipfile, filename):
     """
     是子目录下的文件
     """
-    try:
-        filename.index('/')
-        return True
-    except ValueError:
-        return False
+    Path(root=zipfile, at=filename).parent.exists()
 
 
 def array_fill(two_dimension_list):
@@ -142,9 +138,10 @@ def rename(series_id, season, zip_file_path, drive):
     # 解压缩
     with ZipFile(zip_file_path) as zip_file:
         item_file_name_list = zip_file.namelist()
-        item_file_name_list = list(filter(lambda item: not is_child(item) and not is_tc(item), item_file_name_list))
+        item_file_name_list = list(filter(lambda item: not is_child(zip_file, item) and not is_tc(item),
+                                          item_file_name_list))
         if len(item_file_name_list) == 0:
-            item_file_name_list = list(filter(lambda item: not is_child(item), zip_file.namelist()))
+            item_file_name_list = list(filter(lambda item: not is_child(zip_file, item), zip_file.namelist()))
         item_file_name_list.sort()
         subtitle_file_type_list = get_subtitle_file_type_list(item_file_name_list)
         filename_episode_num_map = get_filename_episode_num_map(item_file_name_list)
