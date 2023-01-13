@@ -182,7 +182,7 @@ class MainDialogUi(object):
         self.selectArchiveFileInput.setText(filename)
 
     def handle_search_series(self):
-        series_list = renamer.find_series(self.searchSeriesInput.text())
+        series_list = renamer.find_series(self.searchSeriesInput.text().strip())
         self.selectSeriesList.clear()
         for series in series_list:
             self.selectSeriesList.addItem(" ".join([series['seriesId'], series['name']]))
