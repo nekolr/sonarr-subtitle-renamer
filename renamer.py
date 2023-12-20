@@ -25,7 +25,7 @@ def find_series(name):
     """
     peashooter_client = PeashooterClient()
     series_list = peashooter_client.refresh_series_list()
-    return list(filter(lambda series: fuzz.partial_ratio(series['name'].lower(), name.lower()) >= seriesMatchRatio,
+    return list(filter(lambda series: fuzz.partial_ratio(series['titleZhCN'].lower(), name.lower()) >= seriesMatchRatio,
                        series_list))
 
 
@@ -38,7 +38,7 @@ def get_output_dir(episode_list):
         # 先替换开始的 '/'
         split_parts = episode['path'].replace('/', '', 1).split('/')
         # 不包括映射目录，所以从 1 开始
-        output_dir.add("/".join(split_parts[1:len(split_parts) - 1]))
+        output_dir.add(os.sep.join(split_parts[1:len(split_parts) - 1]))
     if len(output_dir) != 1:
         raise ValueError("输出路径有误，请检查")
     return output_dir.pop()

@@ -185,7 +185,7 @@ class MainDialogUi(object):
         series_list = renamer.find_series(self.searchSeriesInput.text().strip())
         self.selectSeriesList.clear()
         for series in series_list:
-            self.selectSeriesList.addItem(" ".join([series['seriesId'], series['name']]))
+            self.selectSeriesList.addItem(" ".join([series['seriesId'], series['titleZhCN']]))
 
     def handle_click_series(self, item):
         self.selectedSeriesId = item.text().split(' ')[0]
