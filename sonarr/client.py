@@ -6,7 +6,7 @@ from sonarr.api import SonarrApi
 class SonarrClient(SonarrApi):
 
     def get_episode_file_list(self, series_id):
-        get_episode_file_list_uri = '/api/episodefile'
+        get_episode_file_list_uri = '/api/v3/episodefile'
         params = {
             "apikey": self.api_key,
             "seriesId": series_id
