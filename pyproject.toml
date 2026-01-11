@@ -1,0 +1,11 @@
+[project]
+name = "sonarr-subtitle-renamer"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.10"
+dependencies = [
+    "requests",
+    "thefuzz",
+    "PySide6",
+    "Levenshtein",
+]
